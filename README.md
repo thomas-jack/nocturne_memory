@@ -181,6 +181,22 @@ Nocturne Memory 的核心在于 **ID 格式**。只要你和 AI 掌握了这套 
 | **Relationship (关系)** | `rel:{viewer}>{target}` | `rel:char_nocturne>char_salem` | **核心视图**。包含 A 对 B 的全部看法，以及下属的所有章节列表。 |
 | **Chapter (章节)** | `chap:{viewer}>{target}:{title}` | `chap:char_nocturne>char_salem:first_meeting` | 具体的记忆切片。挂载在关系之下。 |
 
+### 1.1 层级结构：子节点 vs 章节
+
+系统中有两种"下属"概念，请区分使用：
+
+1.  **Chapter (章节)**：
+    *   依附于 **关系** (Relationship)。
+    *   代表 **"发生过的事件"** 或 **"具体的记忆片段"**。
+    *   例如：Nocturne 和 Salem 之间的 "第一次见面"、"契约签订"。
+
+2.  **Child Entity (子节点)**：
+    *   依附于 **实体** (Entity)。
+    *   代表 **"从属的概念/物品/地点"**。
+    *   例如：`char_nocturne` (母) -> `item_sword` (子)。
+    *   在 MCP 中，当读取母节点时，会自动列出所有子节点的摘要。
+    *   *注：子节点本身是个普通的 Entity，只是多了一个 `BELONGS_TO` 关系指向母节点。*
+
 ### 2. 怎么让 AI 读记忆？
 
 在支持 MCP 的对话窗口中（如 Claude Desktop, Antigravity），你可以直接用自然语言指挥：
